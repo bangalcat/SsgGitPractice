@@ -9,3 +9,4 @@ Git은 적절히 활용하면 svn보다 더 협업을 잘 도와줄 수 있는 �
 또한 여러 Git의 용어들과 Git-Flow를 설명하고 Git-Flow를 연습해볼 것이다.
 
 [Git 기본 개념](https://github.com/Semaj2010/SsgGitPractice/blob/master/Git%20%EA%B0%9C%EB%85%90%20%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.md)
+[](https://github.com/Semaj2010/SsgGitPractice/blob/master/Git%20Flow%EB%9E%80.md)
