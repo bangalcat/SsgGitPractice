@@ -6,8 +6,7 @@ Git Flow란 저장소를 보다 고수준으로 관리하기 위한 브랜칭 �
 
 
 
-![img](C:\Users\user\Documents\마크다운\99FE0A385AE809E81D)
-
+![img](https://t1.daumcdn.net/cfile/tistory/99FE0A385AE809E81D)
 
 
 [여기 설명이 너무 잘되어있는데](https://gist.github.com/ihoneymon/a28138ee5309c73e94f9)
