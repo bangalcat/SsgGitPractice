@@ -20,9 +20,9 @@ Git은 적절히 활용하면 svn보다 더 협업을 잘 도와줄 수 있는 �
 
 2. 새로운 feature branch를 만든다.
 
-   ###### feature branch는 {username}/feature- {기능} 식으로 만든다.
+   ###### feature branch는 {username}-feature- {기능} 식으로 만든다.
 
-   ex) `donghyun/feature-print`
+   ex) `donghyun-feature-print`
 
    > 당분간은 그냥 자기 이니셜만 붙여도 된다.
 
