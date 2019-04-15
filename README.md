@@ -31,3 +31,11 @@ Git은 적절히 활용하면 svn보다 더 협업을 잘 도와줄 수 있는 �
 4. 작업한 feature branch에 develop 브랜치를 merge into 하거나 반대로 feature를 develop 브랜치에 rebase onto 한다. (rebase와 merge의 차이를 비교해볼 수 있다.)
 
 5. feature branch를 develop branch에 merge하는 pull request를 생성한다.
+
+#### 급하게 수정해야 될거 같은 부분이 있을 때
+1. `hotfix` branch를 새로 checkout한다. 없으면 만들것
+```console
+$git checkout -b hotfix
+```
+2. 수정 후 commit
+3. merge request
