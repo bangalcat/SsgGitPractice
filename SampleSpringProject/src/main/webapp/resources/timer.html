@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<script>
+    function printClock() {
+
+        var clock = document.getElementById("clock");            // 출력할 장소 선택
+        var currentDate = new Date();                                     // 현재시간
+        var remainHours = addZeros(16 - currentDate.getHours(),2);
+        var remainMinute = addZeros(60 - currentDate.getMinutes(),2);
+        var remainSeconds = addZeros(60 - currentDate.getSeconds(),2);
+        var words = "힘내자"
+        if (currentDate.getHours()>11) {
+            remainHours = '<span style="color:#de6971;">' + remainHours + '</span>'
+            words = "오전은 버텼다~"
+        }
+        else if (currentDate.getHours()>16) {
+            remainHours = '<span style="color:#de203a;">' + remainHours + '</span>'
+            words = "곧 퇴근!"
+        }
+        clock.innerHTML = remainHours + ":" + remainMinute + ":" + remainSeconds + " <span style='font-size:20px;'>" +words+ "</span>"; //날짜를 출력해 줌
+
+        setTimeout("printClock()", 1000);         // 1초마다 printClock() 함수 호출
+    }
+
+    function addZeros(num, digit) { // 자릿수 맞춰주기
+        var zero = '';
+        num = num.toString();
+        if (num.length < digit) {
+            for (i = 0; i < digit - num.length; i++) {
+                zero += '0';
+            }
+        }
+        return zero + num;
+    }
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="printClock()">
+<div style="border:1px solid #dedede; width:600px; height:250px; line-height:250px; color:#666;font-size:100px; text-align:center;"
+     id="clock">
+</div>
+</body>
+</html>
