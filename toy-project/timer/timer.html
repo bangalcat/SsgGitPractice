@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<script>
+    function printClock() {
+
+        var clock = document.getElementById("clock");            // 출력할 장소 선택
+        var currentDate = new Date();                                     // 현재시간
+        var remainHours = addZeros(16 - currentDate.getHours(),2);
+        var remainMinute = addZeros(59 - currentDate.getMinutes(),2);
+        var remainSeconds = addZeros(59 - currentDate.getSeconds(),2);
+        var words = "힘내자"
+        if (currentDate.getHours() >= 16 && currentDate.getMinutes() > 39) {
+            remainHours = '<span style="color:#de6971;">' + remainHours + '</span>'
+            words = "짐 싸!"
+        }
+        else if (currentDate.getHours() > 15) {
+            remainHours = '<span style="color:#de6971;">' + remainHours + '</span>'
+            words = "마! 아직 집중근무시간이다!"
+        }
+        else if (currentDate.getHours() > 14) {
+            remainHours = '<span style="color:#de6971;">' + remainHours + '</span>'
+            words = "점심먹고 졸립지?? 힘내"
+        }
+        else if (currentDate.getHours() > 13) {
+            remainHours = '<span style="color:#de203a;">' + remainHours + '</span>'
+            words = "점심은 버텼다!"
+        }
+        else if (currentDate.getHours() > 11 && currentDate.getMinutes() > 20) {
+            remainHours = '<span style="color:#de203a;">' + remainHours + '</span>'
+            words = "오늘 점심은 뭘까?"
+        }
+        else if (currentDate.getHours() > 9) {
+            remainHours = '<span style="color:#de203a;">' + remainHours + '</span>'
+            words = "남은시간 볼 생각도 하지마.."
+        }
+        clock.innerHTML = remainHours + ":" + remainMinute + ":" + remainSeconds + "<br><span style='font-size:20px;'>" + words + "</span>"; //날짜를 출력해 줌
+
+        setTimeout("printClock()", 1000);         // 1초마다 printClock() 함수 호출
+    }
+
+    function addZeros(num, digit) { // 자릿수 맞춰주기
+        var zero = '';
+        num = num.toString();
+        if (num.length < digit) {
+            for (i = 0; i < digit - num.length; i++) {
+                zero += '0';
+            }
+        }
+        return zero + num;
+    }
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="printClock()">
+<div style="border:1px solid #dedede; width:100vh; height:60vh; line-height:15vh; color:#666;font-size:100px; text-align:center; margin:auto;padding-top:15vh;"
+     id="clock">
+</div>
+</body>
+</html>
