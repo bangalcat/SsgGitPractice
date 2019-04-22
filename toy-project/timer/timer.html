@@ -4,50 +4,50 @@
     function printClock() {
         var clock = document.getElementById("clock");            // 출력할 장소 선택
         var currentDate = new Date();                                     // 현재시간
-        var remainHours = addZeros(16 - currentDate.getHours(),2);
-        var remainMinute = addZeros(59 - currentDate.getMinutes(),2);
-        var remainSeconds = addZeros(59 - currentDate.getSeconds(),2);
+        var remainHours = addZeros(16 - currentDate.getHours(), 2);
+        var remainMinute = addZeros(59 - currentDate.getMinutes(), 2);
+        var remainSeconds = addZeros(59 - currentDate.getSeconds(), 2);
         var words = getMatchingWord(currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
-        var mColor = getColor(currentDate.getHours());
-        clock.innerHTML ='<span style="color:' + mColor +';">' + remainHours + ":" + remainMinute + ":" + remainSeconds + '</span>' + "<br><span style='font-size:25px;'>" + words + "</span>"; //날짜를 출력해 줌
+        var mColor = getColor(currentDate.getHours(), currentDate.getMinutes());
+        if (currentDate.getHours() < 17)
+            clock.innerHTML = '<span style="color:' + mColor + ';">' + remainHours + ":" + remainMinute + ":" + remainSeconds + '</span>' + "<br><span style='font-size:25px;'>" + words + "</span>"; //날짜를 출력해 줌
+        else
+            clock.innerHTML = '아직 집에 안간다고..?'
 
         setTimeout("printClock()", 1000);         // 1초마다 printClock() 함수 호출
     }
-    function getColor(hour){
-        if(hour > 17)
+
+    function getColor(hour, minute) {
+        if (hour >= 16 && minute >= 50)
             return "#de0001";
-        if(hour > 16)
+        if (hour >= 16)
             return "#bc2134";
-        else if(hour > 15)
+        else if (hour >= 15)
             return "#de6971";
-        else if(hour > 14)
+        else if (hour >= 14)
             return "#75427b";
-        else if(hour > 13)
+        else if (hour >= 13)
             return "#54517e";
-        else if(hour > 10)
+        else if (hour >= 10)
             return "#43495a";
         else return "#525252"
     }
-    function getMatchingWord(hour, minute, sec){
+
+    function getMatchingWord(hour, minute, sec) {
         var words;
         if (hour >= 16 && minute > 39) {
             words = "짐 싸!"
-        }
-        else if (hour >= 15) {
+        } else if (hour >= 15) {
             words = "마! 아직 집중근무시간이다!"
-        }
-        else if (hour >= 14) {
+        } else if (hour >= 14) {
             words = "점심먹고 졸립지?? 힘내"
-        }
-        else if (hour >= 13) {
+        } else if (hour >= 13) {
             words = "점심은 버텼다!"
-        }
-        else if (hour >= 11 && minute > 10) {
+        } else if (hour >= 11 && minute > 10) {
             words = "오늘 점심은 뭘까?"
-        }
-        else if (hour >= 9) {
+        } else if (hour >= 9) {
             words = "오늘두 힘차게 화이팅"
-        }else
+        } else
             words = "힘내자";
         return words;
     }
@@ -68,7 +68,7 @@
     <title>Title</title>
 </head>
 <body onload="printClock()">
-<div style="border:1px solid #dedede; width:100vh; height:60vh; line-height:15vh; color:#666;font-size:100px; text-align:center; margin:auto;padding-top:15vh;"
+<div style="border:1px solid #dedede; width:100vh; height:60vh; line-height:15vh; color:#666;font-size:80px; text-align:center; margin:auto;padding-top:15vh;"
      id="clock">
 </div>
 </body>
