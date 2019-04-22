@@ -64,3 +64,20 @@ IDE에서 제공하는 merge tool로 merge conflict 해결.
 
 터미널로 conflict 상태를 보려면 `$git status` 로 확인 가능
 
+> 솔직히 Merge Conflict 해결은 IDE로 하는 것이 낫다.
+
+### Merge 취소하기
+
+Merge 중에 발생한 충돌을 해결하는 방법은 몇 가지가 있다.
+첫번째는 그저 이 상황을 벗어나는것.
+
+```console
+$ git merge --abort
+$ git reset --hard HEAD // 어떤 이유로든 merge를 처음부터 다시 하고 싶다면
+```
+
+### 공백 무시하기
+`Xignore-all-space`나 `-Xignore-space-change` 옵션으로 merge. 전자는 모든 공백 무시, 두 번째는 뭉쳐 있는 공백을 하나로 취급. 
+팀원 중 누군가가 스페이스를 전부 탭으로 바꾸거나 하는 짓을 했을 때 이 옵션이 구원해준다.
+
+
