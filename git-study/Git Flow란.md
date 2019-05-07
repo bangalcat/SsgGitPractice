@@ -4,9 +4,8 @@ Git Flow란 저장소를 보다 고수준으로 관리하기 위한 브랜칭 �
 
 [배달의 x족에서도 쓴다더라!](http://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html)
 
-
-
 ![img](https://t1.daumcdn.net/cfile/tistory/99FE0A385AE809E81D)
+
 
 
 [여기 설명이 너무 잘되어있는데](https://gist.github.com/ihoneymon/a28138ee5309c73e94f9)

@@ -62,7 +62,7 @@ userServiceImpl.setMailSender(mockMailSender);
 
 ### 복잡한 의존관계 속의 테스트
 
-![테스트 대상의 의존구조](C:\Users\user\Downloads\feature2.png)
+![테스트 대상의 의존구조](D:\Downloads\feature2.png)
 
 테스트하고자 하는 대상인 UserService 코드만 바르게 작성되어 있으면 된다. 그런데 3가지 의존관계를 가지고 있어서 테스트가 진행되는 동안에 같이 실행된다. 게다가 3가지 의존 오브젝트들도 또다른 의존성이 있음
 
@@ -94,7 +94,7 @@ userServiceImpl.setMailSender(mockMailSender);
 
 그 중에서도 사용하기도 편리하고, 코드도 직관적인 Mockito 프레임워크.
 
-간단한 스태틱 메소드 호출만으로 다이내믹하게 특정 인터페이스르르 구현한 테스트용 목 오브젝트 생성 가능
+간단한 스태틱 메소드 호출만으로 다이내믹하게 특정 인터페이스를 구현한 테스트용 목 오브젝트 생성 가능
 
 ```java
 UserDao mockUserDao = mock(UserDao.class)
@@ -144,7 +144,7 @@ verify(mockUserDao, times(2)).update(any(User.class));
 2. 지정된 요청에 대해서는 부가기능을 수행한다.
    -> 부가기능 코드가 중복될 가능성이 많다.
 
-![다이나믹 프록시의 동작방식](C:\Users\user\Downloads\feature3.png)
+![다이나믹 프록시의 동작방식](D:\Downloads\feature3.png)
 
 > 다이나믹 프록시의 동작방식
 
@@ -361,13 +361,13 @@ public class DynamicProxyTest {
         }
     }
     
-    static interface Hello {
+    static interface Hello {	// 타깃과 프록시가 구현할 인터페이스
         String sayHello(String name);
         String sayHi(String name);
         String sayThankYor(String name);
     }
     
-    static class HelloTarget implements Hello {
+    static class HelloTarget implements Hello {	//타깃 클래스
         public String sayHello(String name) { return "Hello" + name; }
         //...
     }
@@ -387,7 +387,7 @@ public class DynamicProxyTest {
 
 #### 포인트컷 : 부가기능 적용 대상 메소드 선정 방법
 
-InvocationHandler를 직접 구현했을 때 메소드 이름 가지고 부가기능 적용 대상 메소드 선정이 가능했다. MethodInterceptor는 싱글톤 빈으로 등록되어 여러 프록시가 공유하기에 특정 프록시에만 적용되는 패턴은 문제가 된다.
+InvocationHandler를 직접 구현했을 때 메소드 이름 가지고 부가기능 적용 대상 메소드 선정이 가능했다. 그런데 스프링의 ProxyFactoryBean과 MethodInterceptor를 사용하는 방식에서는 불가능하다. MethodInterceptor는 싱글톤 빈으로 등록되어 여러 프록시가 공유하기에 특정 프록시에만 적용되는 패턴은 문제가 된다.
 
 대신 프록시에 부가기능 적용 메소드를 선택하는 기능을 넣자. 물론 프록시의 핵심 가치는 타깃을 대신해서 클라이언트의 요청을 받아 처리하는 오브젝트로서의 존재 가치이므로, 메소드 선별기능도 분리하는게 낫다.
 
@@ -411,9 +411,13 @@ public void pointcutAdvisor() {
 
 #### ProxyFactoryBean 적용
 
-이전에 만든 TransactionHandler에서 타깃과 메소드 선정 부분을 제거해 주면 된다.
+JDK 다이나믹 프록시의 구조를 그대로 이용해 만들었던 TxProxyFactoryBean을 이제 스프링이 제공하는 ProxyFactoryBean을 이용하도록 수정해보자.
+
+
 
 ```java
+// 부가기능을 담당하는 어드바이스는 테스트에서 만들어본 것처럼 MethodInterceptor라는 Advice 서브인터페이스를 구현해서 만든다.
+// 이전에 만든 TransactionHandler에서 타깃과 메소드 선정 부분을 제거해 주면 된다.
 public class TransactionAdvice implements MethodInterceptor { //스프링 어드바이스 인터페이스 구현
     PlatformTransactionManager transactionManager;
     
@@ -421,6 +425,7 @@ public class TransactionAdvice implements MethodInterceptor { //스프링 어드
         this.transactionManager = transactionManager;
     }
     
+    //타깃을 호출하는 기능을 가진 콜백 오브젝트를 프록시로부터 받는다. 덕분에 어드바이스는 특정 타깃에 의존하지 않고 재사용 가능하다.
     public Object invoke(MethodInvocation invocation) throws Throwable {
         TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition());
         
